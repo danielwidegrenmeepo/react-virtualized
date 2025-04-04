@@ -54,10 +54,18 @@ export default class CellMeasurer extends React.PureComponent<Props> {
 
     return cloneElement(resolvedChildren, {
       ref: node => {
-        if (typeof resolvedChildren.ref === 'function') {
-          resolvedChildren.ref(node);
-        } else if (resolvedChildren.ref) {
-          resolvedChildren.ref.current = node;
+        if (React.version < '19.0.0') {
+          if (typeof resolvedChildren.ref === 'function') {
+            resolvedChildren.ref(node);
+          } else if (resolvedChildren.ref) {
+            resolvedChildren.ref.current = node;
+          }
+        } else {
+          if (typeof resolvedChildren.props.ref === 'function') {
+            resolvedChildren.props.ref(node);
+          } else if (resolvedChildren.props.ref) {
+            resolvedChildren.props.ref.current = node;
+          }
         }
         this._child.current = node;
       },
