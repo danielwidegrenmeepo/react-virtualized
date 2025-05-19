@@ -30,6 +30,16 @@ type Props = {
 export default class CellMeasurer extends React.PureComponent<Props> {
   static __internalCellMeasurerFlag = false;
 
+  static __setCurrentNode = (node, resolvedChildren) => {
+    if (typeof resolvedChildren.props.ref === 'function') {
+      resolvedChildren.props.ref(node);
+    } else if (resolvedChildren.props.ref) {
+      resolvedChildren.props.ref.current = node;
+    }
+    console.log('setting node v19');
+    this._child.current = node;
+  };
+
   _child: {current: HTMLElement | null} = React.createRef();
 
   componentDidMount() {
@@ -53,22 +63,7 @@ export default class CellMeasurer extends React.PureComponent<Props> {
     }
 
     return cloneElement(resolvedChildren, {
-      ref: node => {
-        if (React.version < '19.0.0') {
-          if (typeof resolvedChildren.ref === 'function') {
-            resolvedChildren.ref(node);
-          } else if (resolvedChildren.ref) {
-            resolvedChildren.ref.current = node;
-          }
-        } else {
-          if (typeof resolvedChildren.props.ref === 'function') {
-            resolvedChildren.props.ref(node);
-          } else if (resolvedChildren.props.ref) {
-            resolvedChildren.props.ref.current = node;
-          }
-        }
-        this._child.current = node;
-      },
+      ref: node => this.__setCurrentNode(node, resolvedChildren),
     });
   }
 
@@ -188,4 +183,16 @@ export default class CellMeasurer extends React.PureComponent<Props> {
 // Used for DEV mode warning check
 if (process.env.NODE_ENV !== 'production') {
   CellMeasurer.__internalCellMeasurerFlag = true;
+}
+
+if (React.version < '19.0.0') {
+  CellMeasurer.__setCurrentNode = (node, resolvedChildren) => {
+    if (typeof resolvedChildren.ref === 'function') {
+      resolvedChildren.ref(node);
+    } else if (resolvedChildren.ref) {
+      resolvedChildren.ref.current = node;
+    }
+    console.log('setting node pre v19');
+    this._child.current = node;
+  };
 }
