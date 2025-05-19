@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.SECTION_SIZE = exports.CELLS = void 0;
 /*
@@ -23,66 +23,55 @@ Sections to Cells map:
  2.1 [7, 8, 9]
 */
 
-var CELLS = (exports.CELLS = [
-  {
-    x: 0,
-    y: 0,
-    width: 2,
-    height: 2,
-  },
-  {
-    x: 2,
-    y: 0,
-    width: 1,
-    height: 1,
-  },
-  {
-    x: 2,
-    y: 1,
-    width: 1,
-    height: 1,
-  },
-  {
-    x: 3,
-    y: 0,
-    width: 1,
-    height: 3,
-  },
-  {
-    x: 0,
-    y: 2,
-    width: 3,
-    height: 2,
-  },
-  {
-    x: 3,
-    y: 3,
-    width: 1,
-    height: 1,
-  },
-  {
-    x: 4,
-    y: 0,
-    width: 2,
-    height: 2,
-  },
-  {
-    x: 4,
-    y: 2,
-    width: 1,
-    height: 1,
-  },
-  {
-    x: 5,
-    y: 2,
-    width: 1,
-    height: 1,
-  },
-  {
-    x: 4,
-    y: 3,
-    width: 2,
-    height: 1,
-  },
-]);
-var SECTION_SIZE = (exports.SECTION_SIZE = 2);
+var CELLS = exports.CELLS = [{
+  x: 0,
+  y: 0,
+  width: 2,
+  height: 2
+}, {
+  x: 2,
+  y: 0,
+  width: 1,
+  height: 1
+}, {
+  x: 2,
+  y: 1,
+  width: 1,
+  height: 1
+}, {
+  x: 3,
+  y: 0,
+  width: 1,
+  height: 3
+}, {
+  x: 0,
+  y: 2,
+  width: 3,
+  height: 2
+}, {
+  x: 3,
+  y: 3,
+  width: 1,
+  height: 1
+}, {
+  x: 4,
+  y: 0,
+  width: 2,
+  height: 2
+}, {
+  x: 4,
+  y: 2,
+  width: 1,
+  height: 1
+}, {
+  x: 5,
+  y: 2,
+  width: 1,
+  height: 1
+}, {
+  x: 4,
+  y: 3,
+  width: 2,
+  height: 1
+}];
+var SECTION_SIZE = exports.SECTION_SIZE = 2;

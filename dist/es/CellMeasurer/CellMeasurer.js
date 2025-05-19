@@ -4,6 +4,8 @@ import _possibleConstructorReturn from "@babel/runtime/helpers/possibleConstruct
 import _getPrototypeOf from "@babel/runtime/helpers/getPrototypeOf";
 import _inherits from "@babel/runtime/helpers/inherits";
 import _defineProperty from "@babel/runtime/helpers/defineProperty";
+var _CellMeasurer,
+  _this3 = this;
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 import * as React from 'react';
@@ -96,20 +98,7 @@ var CellMeasurer = /*#__PURE__*/function (_React$PureComponent) {
       }
       return /*#__PURE__*/cloneElement(resolvedChildren, {
         ref: function ref(node) {
-          if (React.version < '19.0.0') {
-            if (typeof resolvedChildren.ref === 'function') {
-              resolvedChildren.ref(node);
-            } else if (resolvedChildren.ref) {
-              resolvedChildren.ref.current = node;
-            }
-          } else {
-            if (typeof resolvedChildren.props.ref === 'function') {
-              resolvedChildren.props.ref(node);
-            } else if (resolvedChildren.props.ref) {
-              resolvedChildren.props.ref.current = node;
-            }
-          }
-          _this2._child.current = node;
+          return _this2.__setCurrentNode(node, resolvedChildren);
         }
       });
     }
@@ -188,8 +177,29 @@ var CellMeasurer = /*#__PURE__*/function (_React$PureComponent) {
     }
   }]);
 }(React.PureComponent); // Used for DEV mode warning check
+_CellMeasurer = CellMeasurer;
 _defineProperty(CellMeasurer, "__internalCellMeasurerFlag", false);
+_defineProperty(CellMeasurer, "__setCurrentNode", function (node, resolvedChildren) {
+  if (typeof resolvedChildren.props.ref === 'function') {
+    resolvedChildren.props.ref(node);
+  } else if (resolvedChildren.props.ref) {
+    resolvedChildren.props.ref.current = node;
+  }
+  console.log('setting node v19');
+  _CellMeasurer._child.current = node;
+});
 export { CellMeasurer as default };
 if (process.env.NODE_ENV !== 'production') {
   CellMeasurer.__internalCellMeasurerFlag = true;
+}
+if (React.version < '19.0.0') {
+  CellMeasurer.__setCurrentNode = function (node, resolvedChildren) {
+    if (typeof resolvedChildren.ref === 'function') {
+      resolvedChildren.ref(node);
+    } else if (resolvedChildren.ref) {
+      resolvedChildren.ref.current = node;
+    }
+    console.log('setting node pre v19');
+    _this3._child.current = node;
+  };
 }

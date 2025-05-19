@@ -475,12 +475,14 @@
                 }, children(childParams));
             }
         } ]);
-    })(), CellMeasurer = (_defineProperty(AutoSizer, "defaultProps", {
+    })();
+    _defineProperty(AutoSizer, "defaultProps", {
         onResize: function() {},
         disableHeight: !1,
         disableWidth: !1,
         style: {}
-    }), (() => {
+    });
+    var CellMeasurer = (() => {
         function CellMeasurer() {
             var _this;
             _classCallCheck(this, CellMeasurer);
@@ -517,8 +519,7 @@
                 }) : children;
                 return null === resolvedChildren ? resolvedChildren : React.cloneElement(resolvedChildren, {
                     ref: function(node) {
-                        React.version < "19.0.0" ? "function" == typeof resolvedChildren.ref ? resolvedChildren.ref(node) : resolvedChildren.ref && (resolvedChildren.ref.current = node) : "function" == typeof resolvedChildren.props.ref ? resolvedChildren.props.ref(node) : resolvedChildren.props.ref && (resolvedChildren.props.ref.current = node), 
-                        _this2._child.current = node;
+                        return _this2.__setCurrentNode(node, resolvedChildren);
                     }
                 });
             }
@@ -550,8 +551,14 @@
                 }));
             }
         } ]);
-    })()), CellMeasurerCache = (_defineProperty(CellMeasurer, "__internalCellMeasurerFlag", !1), 
-    CellMeasurer.__internalCellMeasurerFlag = !0, _createClass(function CellMeasurerCache() {
+    })(), _CellMeasurer = CellMeasurer, CellMeasurerCache = (_defineProperty(CellMeasurer, "__internalCellMeasurerFlag", !1), 
+    _defineProperty(CellMeasurer, "__setCurrentNode", function(node, resolvedChildren) {
+        "function" == typeof resolvedChildren.props.ref ? resolvedChildren.props.ref(node) : resolvedChildren.props.ref && (resolvedChildren.props.ref.current = node), 
+        console.log("setting node v19"), _CellMeasurer._child.current = node;
+    }), CellMeasurer.__internalCellMeasurerFlag = !0, React.version < "19.0.0" && (CellMeasurer.__setCurrentNode = function(node, resolvedChildren) {
+        "function" == typeof resolvedChildren.ref ? resolvedChildren.ref(node) : resolvedChildren.ref && (resolvedChildren.ref.current = node), 
+        console.log("setting node pre v19"), (void 0)._child.current = node;
+    }), _createClass(function CellMeasurerCache() {
         var _this = this, params = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : {}, defaultHeight = (_classCallCheck(this, CellMeasurerCache), 
         _defineProperty(this, "_cellHeightCache", {}), _defineProperty(this, "_cellWidthCache", {}), 
         _defineProperty(this, "_columnWidthCache", {}), _defineProperty(this, "_rowHeightCache", {}), 

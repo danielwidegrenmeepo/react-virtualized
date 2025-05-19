@@ -19,4 +19,4 @@
   height: number,
   width: number,
 };*/
-'use strict';
+"use strict";
